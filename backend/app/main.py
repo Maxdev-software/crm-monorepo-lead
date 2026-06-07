@@ -26,7 +26,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Database ──────────────────────────────────────────────────────────────────
 engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
@@ -61,13 +60,11 @@ def get_db():
         db.close()
 
 
-# ── Redis ─────────────────────────────────────────────────────────────────────
 redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
 ANALYTICS_CACHE_KEY = "crm:analytics:dashboard"
-ANALYTICS_TTL = 300  # 5 minutes
+ANALYTICS_TTL = 300  
 
 
-# ── Schemas ───────────────────────────────────────────────────────────────────
 class LeadCreate(BaseModel):
     name: str
     email: EmailStr
@@ -88,7 +85,6 @@ class LeadResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# ── Endpoints ─────────────────────────────────────────────────────────────────
 @app.get("/api/v1/health")
 def health():
     return {"status": "ok", "timestamp": datetime.utcnow().isoformat()}
