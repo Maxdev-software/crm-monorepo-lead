@@ -31,7 +31,7 @@ def send_email_notification(self, lead_id: int, email: str, name: str):
     """Simulate sending a welcome email to a new lead."""
     try:
         logger.info("[TASK] Sending email to %s (lead #%d) …", email, lead_id)
-        time.sleep(2)  # simulate SMTP latency
+        time.sleep(2)
         logger.info(
             "[TASK] ✅ Email sent to %s — Subject: Welcome, %s!", email, name
         )
